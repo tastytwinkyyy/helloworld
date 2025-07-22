@@ -19,5 +19,6 @@ jobs:
           git config --global user.email "tastytwinkyyy@example.com"
           git config --global user.name "tastytwinkyyy"
           git add .
-          git commit -m "Auto commit on $(date)"
+          git commit -m "Auto commit on $(date)" || echo "No changes to commit"
+          git pull --rebase
           git push
