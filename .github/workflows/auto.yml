@@ -16,7 +16,7 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --global user.email "tastytwinkyyy@example.com"
+          git config --global user.email "tastytwinkyyy@gmail.com"
           git config --global user.name "tastytwinkyyy"
           git add .
           git commit -m "Auto commit on $(date)" || echo "No changes to commit"
