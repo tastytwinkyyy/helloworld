@@ -2,23 +2,27 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # Chạy mỗi ngày lúc 3h sáng UTC
+    - cron: '0 0 * * *' # Chạy vào 12h sáng mỗi ngày (giờ UTC)
   workflow_dispatch:
 
 jobs:
-  commit:
+  auto-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Update timestamp
-        run: echo "Auto commit at $(date)" >> log.txt
-
-      - name: Commit changes
+      - name: Chạy script tự động (ví dụ)
         run: |
-          git config --global user.email "tastytwinkyyy@gmail.com"
-          git config --global user.name "tastytwinkyyy"
+          echo "$(date)" >> auto-commit-log.txt
+
+      - name: Thiết lập Git config (dùng tài khoản của bạn)
+        run: |
+          git config user.name "tastytwinkyyy"
+          git config user.email "minhhoangflick@gmail.com"
+
+      - name: Commit thay đổi nếu có
+        run: |
           git add .
-          git commit -m "Auto commit on $(date)" || echo "No changes to commit"
-          git pull --rebase
+          git diff --cached --quiet || git commit -m "Auto commit: $(date '+%Y-%m-%d %H:%M:%S')"
           git push
